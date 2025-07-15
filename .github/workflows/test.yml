@@ -95,8 +95,10 @@ jobs:
             "message": "'"$PCT"'%",
             "color": "'"$COLOR"'"
           }' > coverage.json
+      - name: Download deploy workflow
+        run: wget https://raw.githubusercontent.com/chickenjdk/github-actions-workflows/main/.github/workflows/deploy-static.yml -O .github/workflows/deploy-static.yml
       - name: Publish report
-        uses: chickenjdk/github-actions-workflows/.github/workflows/deploy-static.yml@main
+        uses: ./.github/workflows/deploy-static.yml
         with:
           source_path: ./coverage.json
           STATIC_CONTENT_TOKEN: ${{ secrets.STATIC_CONTENT_TOKEN }}

@@ -44,7 +44,7 @@
     "test-main": "jest --testPathIgnorePatterns=\"/node_modules/|mac-big.test.js\"",
     "test-mac-big": "jest test/mac-big.test.js",
     "cover": "npm-run-all -c cover-main cover-cleanup",
-    "cover-main": "jest --coverage --testPathIgnorePatterns=\"/node_modules/|mac-big.test.js\"",
+    "cover-main": "jest --coverage --testPathIgnorePatterns=\"/node_modules/|mac-big.test.js\" --coverageReporters=\"json-summary\"",
     "cover-cleanup": "rm -rf coverage"
   },
   "engines": {

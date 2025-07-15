@@ -17,8 +17,7 @@
     "url": "https://github.com/overlookmotel/yauzl-promise/issues"
   },
   "dependencies": {
-    "@node-rs/crc32": "^1.7.0",
-    "is-it-type": "^5.1.2",
+    "crc-32": "^1.2.2",
     "simple-invariant": "^2.0.1"
   },
   "devDependencies": {

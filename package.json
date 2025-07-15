@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/overlookmotel/yauzl-promise.git"
+    "url": "https://github.com/chickenjdk/yauzl-promise.git"
   },
   "bugs": {
-    "url": "https://github.com/overlookmotel/yauzl-promise/issues"
+    "url": "https://github.com/chickenjdk/yauzl-promise/issues"
   },
   "dependencies": {
     "crc-32": "^1.2.2",

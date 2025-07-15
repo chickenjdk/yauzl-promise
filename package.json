@@ -1,13 +1,13 @@
 {
-  "name": "yauzl-promise",
-  "version": "4.0.0",
+  "name": "@chickenjdk/yauzl-promise",
+  "version": "1.0.0",
   "description": "Unzip library for NodeJS",
   "main": "index.js",
   "files": [
     "lib/**/*.js"
   ],
   "author": {
-    "name": "Overlook Motel"
+    "name": "Overlook Motel, Coolchickenguy"
   },
   "repository": {
     "type": "git",

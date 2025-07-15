@@ -1,6 +1,8 @@
 [![NPM version](https://img.shields.io/npm/v/yauzl-promise.svg)](https://www.npmjs.com/package/yauzl-promise)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/overlookmotel/yauzl-promise/test.yml?branch=master)](https://github.com/overlookmotel/yauzl-promise/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/chickenjdk/yauzl-promise/test.yml?branch=master)](https://github.com/chickenjdk/yauzl-promise/actions)
 ![Coverage Status](https://img.shields.io/endpoint?url=https://chickenjdk.github.io/static-files/yauzl-promise/coverage.json)
+
+I did not create this library, it is a modification of yazul-promise. The main changes are removing the native dependency and getting rid of the unnesesary @babel/runtime as a runtime dependency
 
 # Unzip library for NodeJS
 

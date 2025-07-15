@@ -104,9 +104,9 @@ jobs:
             "color": "'"$COLOR"'"
           }' > coverage.json
       - name: Download deploy workflow
-        run: wget https://raw.githubusercontent.com/chickenjdk/github-actions-workflows/main/.github/workflows/deploy-static.yml -O .github/workflows/deploy-static.yml
+        run: mkdir deploy-static && wget https://raw.githubusercontent.com/chickenjdk/github-actions-workflows/main/.github/workflows/deploy-static.yml -O deploy-static/action.yml
       - name: Publish report
-        uses: ./.github/workflows/deploy-static.yml
+        uses: ./deploy-static
         with:
           source_path: ./coverage.json
           STATIC_CONTENT_TOKEN: ${{ secrets.STATIC_CONTENT_TOKEN }}

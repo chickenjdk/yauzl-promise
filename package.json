@@ -38,14 +38,15 @@
     "archive"
   ],
   "scripts": {
-    "test": "npm run lint && npm run test-main",
+    "test": "npm-run-all -s lint test-main",
     "lint": "jest --config=jest-eslint.config.js",
     "lint-fix": "eslint . --fix",
     "test-main": "jest --testPathIgnorePatterns=\"/node_modules/|mac-big.test.js\"",
     "test-mac-big": "jest test/mac-big.test.js",
     "cover": "npm-run-all -c cover-main cover-cleanup",
     "cover-main": "jest --coverage --testPathIgnorePatterns=\"/node_modules/|mac-big.test.js\" --coverageReporters=\"json-summary\"",
-    "cover-cleanup": "rm -rf coverage"
+    "cover-cleanup": "rm -rf coverage",
+    "postinstall": "node link-self.js"
   },
   "engines": {
     "node": ">=16"

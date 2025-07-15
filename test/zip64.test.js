@@ -14,7 +14,8 @@ const {readFileSync} = require('node:fs'),
 	{Readable: ReadableStream, Writable: WritableStream} = require('node:stream'),
 	BufferList = require('bl'),
 	assert = require('simple-invariant'),
-	yauzl = require('yauzl-promise');
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	yauzl = require('@chickenjdk/yauzl-promise');
 
 // Imports
 const {streamToString} = require('./support/utils.js');

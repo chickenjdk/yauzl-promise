@@ -10,7 +10,8 @@ require('./support/index.js');
 
 // Modules
 const PassThroughStream = require('node:stream').PassThrough,
-	yauzl = require('yauzl-promise');
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	yauzl = require('@chickenjdk/yauzl-promise');
 
 // Imports
 const {streamToBuffer} = require('./support/utils.js');

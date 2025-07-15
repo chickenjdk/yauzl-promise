@@ -10,7 +10,8 @@ require('./support/index.js');
 
 // Modules
 const pathJoin = require('node:path').join,
-	yauzl = require('yauzl-promise');
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	yauzl = require('@chickenjdk/yauzl-promise');
 
 // Imports
 const {streamToBuffer, getFiles} = require('./support/utils.js');

@@ -13,7 +13,8 @@ jest.setTimeout(5 * 60000); // 5 minutes
 // Modules
 const pathJoin = require('node:path').join,
 	assert = require('simple-invariant'),
-	yauzl = require('yauzl-promise');
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	yauzl = require('@chickenjdk/yauzl-promise');
 
 // Imports
 const {streamToString} = require('./support/utils.js');

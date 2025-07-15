@@ -13,7 +13,8 @@ const pathJoin = require('node:path').join,
 	fs = require('node:fs'),
 	{promisify} = require('node:util'),
 	ReadableStream = require('node:stream').Readable,
-	yauzl = require('yauzl-promise');
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	yauzl = require('@chickenjdk/yauzl-promise');
 
 const openAsync = promisify(fs.open);
 

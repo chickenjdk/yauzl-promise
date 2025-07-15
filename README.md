@@ -1,6 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/yauzl-promise.svg)](https://www.npmjs.com/package/yauzl-promise)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/overlookmotel/yauzl-promise/test.yml?branch=master)](https://github.com/overlookmotel/yauzl-promise/actions)
-[![Coverage Status](https://img.shields.io/coveralls/overlookmotel/yauzl-promise/master.svg)](https://coveralls.io/r/overlookmotel/yauzl-promise)
+![Coverage Status](https://img.shields.io/endpoint?url=https://chickenjdk.github.io/static-files/yauzl-promise/coverage.json)
 
 # Unzip library for NodeJS
 
@@ -9,7 +9,7 @@
 This library is a rewrite of `yauzl`, which retains all its features and careful adherence to the ZIP spec, but with the following improvements:
 
 * Promise-based API
-* Validation of CRC32 checksums to ensure data integrity (using fast Rust CRC32 calculation)
+* Validation of CRC32 checksums to ensure data integrity
 * Support for unzipping faulty ZIP files created by Mac OS Archive Utility (see [here](https://github.com/thejoshwolfe/yauzl/issues/69))
 * Extract files from ZIP in parallel
 * Additional options

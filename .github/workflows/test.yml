@@ -82,15 +82,21 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run cover-main
-    - name: Send report to Coveralls
-      uses: coverallsapp/github-action@v1.1.2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract coverage and generate badge
+        run: |
+          PCT=$(node -pe "require('./coverage/coverage-summary.json').total.statements.pct.toFixed(0)")
+          COLOR=$(node -e "
+            let pct = $PCT;
+            console.log(pct > 90 ? 'brightgreen' : pct > 75 ? 'yellow' : 'red');
+          ")
+          echo '{
+            "schemaVersion": 1,
+            "label": "coverage",
+            "message": "'"$PCT"'%",
+            "color": "'"$COLOR"'"
+          }' > coverage.json
+      - name: Publish report
+        uses: chickenjdk/github-actions-workflows/.github/workflows/deploy-static.yml@main
+        with:
+          source_path: ./coverage.json
+          STATIC_CONTENT_TOKEN: ${{ secrets.STATIC_CONTENT_TOKEN }}

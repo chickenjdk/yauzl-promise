@@ -106,7 +106,6 @@ jobs:
   coverage-selfhosted:
     runs-on: [self-hosted]
     timeout-minutes: 1
-    needs: test-big-mac-zips-selfhosted
     steps: &coverage_steps
       - uses: actions/checkout@v3
       - name: Use Node.js 18

@@ -4,34 +4,49 @@ on:
   push
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run lint
+  lint-selfhosted:
+    runs-on: [self-hosted]
+    timeout-minutes: 1
+    steps: &lint_steps
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
 
-  test-linux:
+  lint-fallback:
+    if: ${{ failure() || needs.lint-selfhosted.result == 'skipped' }}
+    needs: lint-selfhosted
     runs-on: ubuntu-latest
+    steps: *lint_steps
 
+  test-linux-selfhosted:
+    runs-on: [self-hosted]
+    timeout-minutes: 1
     strategy:
       matrix:
         node-version: [20, 19, 18, 16]
+    steps: &test_linux_steps
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test-main
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run test-main
+  test-linux-fallback:
+    if: ${{ failure() || needs.test-linux-selfhosted.result == 'skipped' }}
+    needs: test-linux-selfhosted
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 19, 18, 16]
+    steps: *test_linux_steps
 
   test-windows:
     runs-on: windows-latest

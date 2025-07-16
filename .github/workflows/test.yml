@@ -4,49 +4,34 @@ on:
   push
 
 jobs:
-  lint-selfhosted:
-    runs-on: [self-hosted]
-    timeout-minutes: 1
-    steps: &lint_steps
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
+  lint:
+    runs-on: [self-hosted, Linux]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run lint
 
-  lint-fallback:
-    if: ${{ failure() || needs.lint-selfhosted.result == 'skipped' }}
-    needs: lint-selfhosted
-    runs-on: ubuntu-latest
-    steps: *lint_steps
+  test-linux:
+    runs-on: [self-hosted, Linux]
 
-  test-linux-selfhosted:
-    runs-on: [self-hosted]
-    timeout-minutes: 1
     strategy:
       matrix:
         node-version: [20, 19, 18, 16]
-    steps: &test_linux_steps
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run test-main
 
-  test-linux-fallback:
-    if: ${{ failure() || needs.test-linux-selfhosted.result == 'skipped' }}
-    needs: test-linux-selfhosted
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20, 19, 18, 16]
-    steps: *test_linux_steps
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run test-main
 
   test-windows:
     runs-on: windows-latest
@@ -74,39 +59,29 @@ jobs:
     - run: npm ci
     - run: npm run test-main
 
-  test-big-mac-zips-selfhosted:
-    runs-on: [self-hosted]
-    timeout-minutes: 1
-    strategy:
-      matrix:
-        mac-big-size: [65534, 65535, 65536, 65537, 131072, 200000]
-    env:
-      MAC_BIG_SIZE: ${{ matrix.mac-big-size }}
-    steps: &test_big_mac_steps
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run test-mac-big
-
-  test-big-mac-zips-fallback:
-    if: ${{ failure() || needs.test-big-mac-zips-selfhosted.result == 'skipped' }}
-    needs: test-big-mac-zips-selfhosted
+  test-big-mac-zips:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         mac-big-size: [65534, 65535, 65536, 65537, 131072, 200000]
+
     env:
       MAC_BIG_SIZE: ${{ matrix.mac-big-size }}
-    steps: *test_big_mac_steps
 
-  coverage-selfhosted:
-    runs-on: [self-hosted]
-    timeout-minutes: 1
-    steps: &coverage_steps
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run test-mac-big
+
+  coverage:
+    runs-on: [self-hosted, Linux]
+    steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -135,9 +110,3 @@ jobs:
         with:
           source_path: ./coverage.json
           STATIC_CONTENT_TOKEN: ${{ secrets.STATIC_CONTENT_TOKEN }}
-
-  coverage-fallback:
-    if: ${{ failure() || needs.coverage-selfhosted.result == 'skipped' }}
-    needs: coverage-selfhosted
-    runs-on: ubuntu-latest
-    steps: *coverage_steps

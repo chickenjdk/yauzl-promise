@@ -25,7 +25,7 @@ if (fs.existsSync(linkPath)) {
 }
 
 if (!fs.existsSync(path.dirname(linkPath))) {
-  fs.mkdirSync(path.dirname(linkPath), { recursive: true });
+	fs.mkdirSync(path.dirname(linkPath), {recursive: true});
 }
 
 console.log(`[link-self] Linking ${targetDir} -> ${linkPath}`);

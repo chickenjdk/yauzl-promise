@@ -8,7 +8,9 @@
 // Init
 require('./support/index.js');
 
-jest.setTimeout(5 * 60000); // 5 minutes
+if (!process.env.CI) {
+	jest.setTimeout(5 * 60000); // 5 minutes
+}
 
 // Modules
 const pathJoin = require('node:path').join,

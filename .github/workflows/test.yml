@@ -104,7 +104,7 @@ jobs:
             "color": "'"$COLOR"'"
           }' > coverage.json
       - name: Download deploy workflow
-        run: mkdir deploy-static && curl -O deploy-static/action.yml https://raw.githubusercontent.com/chickenjdk/github-actions-workflows/main/.github/workflows/deploy-static.yml
+        run: mkdir deploy-static && curl -o deploy-static/action.yml https://raw.githubusercontent.com/chickenjdk/github-actions-workflows/main/.github/workflows/deploy-static.yml
       - name: Publish report
         uses: ./deploy-static
         with:
